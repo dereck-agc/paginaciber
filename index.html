@@ -2,181 +2,78 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>¿Por qué estudiar Ciberseguridad?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Página de Arranque</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-
-    body, html {
-      height: 100%;
+    body {
+      background-color: black;
+      color: lime;
+      font-family: monospace;
       margin: 0;
-      background: black;
-      font-family: 'Share Tech Mono', monospace;
-      color: #00FF00;
-      overflow: hidden;
+      overflow-x: hidden;
     }
 
-    /* Botón hamburguesa */
-    .hamburger {
+    #menu-btn {
       position: fixed;
-      top: 10px;
-      left: 10px;
-      z-index: 5000;
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      width: 28px;
-      height: 28px;
-      background: transparent;
+      top: 1rem;
+      left: 1rem;
+      z-index: 101;
+      background: none;
       border: none;
+      color: lime;
+      font-size: 1.5rem;
       cursor: pointer;
     }
 
-    .hamburger span {
-      background: #00FF00;
-      height: 3px;
-      margin: 3px 0;
-      width: 100%;
-      display: block;
-    }
-
-    /* Pantalla de booteo */
-    #boot-screen {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: black;
-      color: #00FF00;
-      padding: 1.5rem;
-      font-size: 1.1rem;
-      white-space: pre-wrap;
-      z-index: 9999;
-    }
-
-    /* Contenido principal */
-    #main-content {
-      display: none;
-      background-color: rgba(0,0,0,0.95);
-      color: #00FF00;
-      padding: 2em;
-      margin-left: 240px;
-      width: calc(100% - 240px);
-      height: 100vh;
-      overflow-y: auto;
-      box-sizing: border-box;
-      transition: margin-left 0.3s ease;
-    }
-
-    /* Menú lateral */
     nav {
+      background-color: #111;
+      padding: 1rem;
+      width: 200px;
+      height: 100vh;
       position: fixed;
       top: 0;
       left: 0;
-      height: 100%;
-      width: 220px;
-      background: rgba(0, 0, 0, 0.95);
-      display: flex;
+      z-index: 100;
+      display: none;
       flex-direction: column;
-      padding: 1em;
-      box-sizing: border-box;
-      z-index: 1000;
-      overflow-y: auto;
-      transition: transform 0.3s ease;
-    }
-
-    nav h2 {
-      text-align: center;
-      margin-bottom: 1em;
-      font-size: 1.1rem;
-      color: #00FF00;
+      gap: 1rem;
     }
 
     nav a {
-      color: #00FF00;
+      color: lime;
       text-decoration: none;
-      padding: 0.5em 0;
-      display: block;
-      cursor: pointer;
     }
 
-    nav a:hover {
-      color: #66FF66;
+    #main-content {
+      padding: 2rem;
+      transition: margin-left 0.3s;
+      margin-left: 0;
     }
 
-    /* Secciones */
-    .section {
-      padding: 2em;
-      margin: 3em auto;
-      background: black;
-      opacity: 0.95;
-      display: none;
-      max-width: 700px;
-      height: auto;
-      overflow-y: auto;
-      box-sizing: border-box;
-      text-align: justify;
+    .visible {
+      display: flex !important;
     }
 
-    .section.active {
-      display: block;
+    .booteo {
+      white-space: pre;
+      animation: aparecer 0.5s steps(40, end);
     }
 
-    h1, h2, h3 {
-      color: #00FF00;
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-
-    p, ul {
-      color: #00FF00;
-      line-height: 1.6;
-    }
-
-    ul {
-      margin-left: 2em;
-    }
-
-    ul li {
-      margin: 0.5em 0;
-    }
-
-    /* Responsive para celulares */
-    @media (max-width: 768px) {
-      .hamburger {
-        display: flex;
+    @keyframes aparecer {
+      from {
+        opacity: 0;
       }
-
-      nav {
-        transform: translateX(-100%);
-      }
-
-      nav.show {
-        transform: translateX(0);
-      }
-
-      #main-content {
-        margin-left: 0;
-        width: 100%;
-        padding-left: 1.5em;
-        padding-right: 1.5em;
+      to {
+        opacity: 1;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Botón hamburguesa -->
-<button id="menu-btn" style="position: fixed; top: 1rem; left: 1rem; z-index: 101; background: none; border: none; color: #0f0; font-size: 1.5rem; cursor: pointer;">
-  ☰
-</button>
+  <button id="menu-btn">☰</button>
 
-    <!-- Pantalla de booteo -->
-  <div id="boot-screen"></div>
-
-  <!-- Contenido principal -->
-  <div id="main-content">
-
-    <!-- Menú lateral -->
-    <nav>
+  <nav id="sidebar">
       <h2>Menú</h2>
       <a data-target="intro">Introducción</a>
       <a data-target="talento">Tu talento y el futuro</a>
@@ -185,10 +82,10 @@
       <a data-target="plan">Plan de estudios</a>
       <a data-target="cursos">Cursos de Cisco</a>
       <a data-target="subareas">Explicación subáreas</a>
-      <a data-target="perfil">Perfil de salida</a>
-    </nav>
+      <a data-target="perfil">Perfil de salida</a>>
+  </nav>
 
-    <!-- Sección 1 -->
+      <!-- Sección 1 -->
     <div class="section" id="intro">
       <h1>¿POR QUÉ ESTUDIAR CIBERSEGURIDAD?</h1>
       <p>¿Sabías que en el mundo se necesitan más de 10 millones de personas para trabajar en Ciberseguridad?</p>
@@ -274,29 +171,21 @@
     </div>
 
   </div>
-
   <script>
-  const menuBtn = document.getElementById('menu-btn');
-  const nav = document.querySelector('nav');
-  const mainContent = document.getElementById('main-content');
+    const menuBtn = document.getElementById('menu-btn');
+    const nav = document.getElementById('sidebar');
+    const mainContent = document.getElementById('main-content');
 
-  menuBtn.addEventListener('click', () => {
-    nav.classList.toggle('hidden');
-    if (nav.classList.contains('hidden')) {
-      mainContent.style.marginLeft = '0';
-    } else {
-      mainContent.style.marginLeft = '220px';
-    }
-  });
-
-  // Cierra el menú cuando se toca un enlace (opcional)
-  const links = document.querySelectorAll('nav a');
-  links.forEach(link => {
-    link.addEventListener('click', () => {
-      nav.classList.add('hidden');
-      mainContent.style.marginLeft = '0';
+    menuBtn.addEventListener('click', () => {
+      nav.classList.toggle('visible');
     });
-  });
-</script>
+
+    const links = document.querySelectorAll('nav a');
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('visible');
+      });
+    });
+  </script>
 </body>
 </html>
