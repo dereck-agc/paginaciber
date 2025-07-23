@@ -1,4 +1,170 @@
-    <!-- Sección 1 -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>¿Por qué estudiar Ciberseguridad?</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+    body, html {
+      height: 100%;
+      margin: 0;
+      background: black;
+      font-family: 'Share Tech Mono', monospace;
+      color: #00FF00;
+      overflow: hidden;
+    }
+
+    #boot-screen {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: black;
+      color: #00FF00;
+      padding: 1.5rem;
+      font-size: 1.1rem;
+      white-space: pre-wrap;
+      z-index: 9999;
+    }
+
+    #main-content {
+      display: none;
+      background-color: rgba(0,0,0,0.95);
+      color: #00FF00;
+      padding: 2em;
+      padding-left: 1em;
+      padding-top: 4em;
+      box-sizing: border-box;
+      width: 100%;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 220px;
+      background: rgba(0, 0, 0, 0.95);
+      display: flex;
+      flex-direction: column;
+      padding: 1em;
+      box-sizing: border-box;
+      z-index: 1000;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+
+    nav.open {
+      transform: translateX(0);
+    }
+
+    nav h2 {
+      text-align: center;
+      margin-bottom: 1em;
+      font-size: 1.1rem;
+      color: #00FF00;
+    }
+
+    nav a {
+      color: #00FF00;
+      text-decoration: none;
+      padding: 0.5em 0;
+      display: block;
+      cursor: pointer;
+    }
+
+    nav a:hover {
+      color: #66FF66;
+    }
+
+    .menu-toggle {
+      position: fixed;
+      top: 0.5em;
+      left: 0.5em;
+      background: none;
+      border: none;
+      color: #00FF00;
+      font-size: 1.8rem;
+      z-index: 1001;
+      cursor: pointer;
+    }
+
+    .section {
+      padding: 1.5em;
+      margin: 2em auto;
+      background: black;
+      opacity: 0.95;
+      display: none;
+      max-width: 700px;
+      height: auto;
+      overflow-y: auto;
+      box-sizing: border-box;
+      text-align: justify;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    h1, h2, h3 {
+      color: #00FF00;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    p, ul {
+      color: #00FF00;
+      line-height: 1.6;
+    }
+
+    ul {
+      margin-left: 1.5em;
+    }
+
+    ul li {
+      margin: 0.5em 0;
+    }
+
+    @media (min-width: 768px) {
+      #main-content {
+        margin-left: 220px;
+        padding-top: 2em;
+      }
+      .menu-toggle {
+        display: none;
+      }
+      nav {
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Botón de menú para móviles -->
+  <button class="menu-toggle">&#9776;</button>
+
+  <!-- Pantalla de booteo -->
+  <div id="boot-screen"></div>
+
+  <!-- Menú lateral -->
+  <nav id="side-menu">
+    <h2>Menú</h2>
+    <a data-target="intro">Introducción</a>
+    <a data-target="talento">Tu talento y el futuro</a>
+    <a data-target="ventajas">Ventajas</a>
+    <a data-target="beneficios">Beneficios en el colegio</a>
+    <a data-target="plan">Plan de estudios</a>
+    <a data-target="cursos">Cursos de Cisco</a>
+    <a data-target="subareas">Explicación subáreas</a>
+    <a data-target="perfil">Perfil de salida</a>
+  </nav>
+
+  <!-- Contenido principal -->
+  <div id="main-content">
+<!-- Sección 1 -->
     <div class="section" id="intro">
       <h1>¿POR QUÉ ESTUDIAR CIBERSEGURIDAD?</h1>
       <p>¿Sabías que en el mundo se necesitan más de 10 millones de personas para trabajar en Ciberseguridad?</p>
@@ -84,3 +250,80 @@
     </div>
 
   </div>
+
+  <script>
+    const bootLines = [
+      "Iniciando Ciberseguridad v1.0...",
+      "Cargando módulos esenciales...",
+      "Estableciendo conexiones de red...",
+      "Inicializando interfaz de usuario...",
+      "Preparando contenido principal...",
+      "Listo, bienvenido al Colegio Técnico Profesional Jesús Ocaña Rojas.",
+      "Presiona cualquier tecla para continuar..."
+    ];
+
+    const bootScreen = document.getElementById("boot-screen");
+    const mainContent = document.getElementById("main-content");
+    const sections = document.querySelectorAll(".section");
+    const menuLinks = document.querySelectorAll("nav a");
+    const menuToggle = document.querySelector(".menu-toggle");
+    const sideMenu = document.getElementById("side-menu");
+
+    let lineIndex = 0;
+
+    function typeNextLine() {
+      if (lineIndex < bootLines.length) {
+        const line = document.createElement("div");
+        bootScreen.appendChild(line);
+
+        let charIndex = 0;
+        const interval = setInterval(() => {
+          line.textContent += bootLines[lineIndex][charIndex];
+          charIndex++;
+          if (charIndex === bootLines[lineIndex].length) {
+            clearInterval(interval);
+            lineIndex++;
+            setTimeout(typeNextLine, 500);
+          }
+        }, 30);
+      } else {
+        document.addEventListener("keydown", showMainContent);
+        setTimeout(showMainContent, 3000);
+      }
+    }
+
+    function showMainContent() {
+      bootScreen.style.display = "none";
+      mainContent.style.display = "block";
+      showSection('intro');
+    }
+
+    function showSection(id) {
+      sections.forEach(section => {
+        if (section.id === id) {
+          section.classList.add("active");
+        } else {
+          section.classList.remove("active");
+        }
+      });
+      if (window.innerWidth < 768) {
+        sideMenu.classList.remove("open");
+      }
+    }
+
+    menuLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        const target = link.getAttribute("data-target");
+        showSection(target);
+      });
+    });
+
+    menuToggle.addEventListener("click", () => {
+      sideMenu.classList.toggle("open");
+    });
+
+    typeNextLine();
+  </script>
+
+</body>
+</html>
