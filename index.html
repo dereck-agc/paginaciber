@@ -3,83 +3,81 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admisión 2025 - CCNPT</title>
+  <title>Admisión CCNPT 2025</title>
   <style>
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
       background: #000;
       color: #0f0;
-      overflow-x: hidden;
+      font-family: 'Courier New', Courier, monospace;
+      margin: 0;
+      padding: 0;
     }
 
-    /* Menú botón */
     #menu-btn {
       position: fixed;
-      top: 15px;
-      right: 15px;
-      background: #111;
-      border: 1px solid #0f0;
+      top: 10px;
+      right: 10px;
+      z-index: 999;
+      background: #000;
       color: #0f0;
-      padding: 8px;
+      border: 1px solid #0f0;
+      padding: 6px 10px;
       font-size: 16px;
-      z-index: 1000;
       cursor: pointer;
-      border-radius: 5px;
     }
 
-    nav {
+    #menu {
       display: none;
       position: fixed;
-      top: 60px;
-      right: 15px;
+      top: 50px;
+      right: 10px;
       background: #111;
       border: 1px solid #0f0;
       padding: 10px;
-      z-index: 999;
+      z-index: 998;
     }
 
-    nav a {
-      display: block;
+    #menu a {
       color: #0f0;
       text-decoration: none;
-      margin: 5px 0;
+      display: block;
+      margin-bottom: 5px;
     }
 
-    nav a:hover {
+    #menu a:hover {
       text-decoration: underline;
     }
 
-    /* Secciones */
-    section {
-      padding: 60px 20px;
-      border-bottom: 1px solid #0f0;
-    }
-
-    h1, h2 {
-      color: #0f0;
-    }
-
-    .booteo {
-      font-family: monospace;
-      white-space: pre;
-      color: #0f0;
-      animation: typing 3s steps(30, end);
+    .terminal {
+      padding: 80px 20px 40px 20px;
+      white-space: pre-line;
+      animation: typing 3s steps(40, end);
       overflow: hidden;
       border-right: 2px solid #0f0;
       max-width: 100%;
-      margin: 100px 20px 40px 20px;
-      font-size: 18px;
     }
 
     @keyframes typing {
-      from { width: 0; }
-      to { width: 100%; }
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    section {
+      padding: 40px 20px;
+      border-top: 1px solid #0f0;
+    }
+
+    h2 {
+      color: #0f0;
+    }
+
+    ul {
+      list-style-type: square;
     }
   </style>
 </head>
 <body>
-  <button id="menu-btn">☰</button>
+  <button id="menu-btn">☰ Menú</button>
   <nav id="menu">
     <a href="#inicio">Inicio</a>
     <a href="#informacion">Información</a>
@@ -87,29 +85,37 @@
     <a href="#ciberseguridad">Ciberseguridad</a>
   </nav>
 
-  <div class="booteo">Cargando sistema de admisión 2025...</div>
-
-  <section id="inicio">
-    <h1>Inicio</h1>
-    <p>Bienvenido al sitio oficial de admisión del Colegio CCNPT. Aquí encontrarás toda la información necesaria para aplicar correctamente.</p>
-  </section>
+  <div class="terminal" id="inicio">
+    Cargando sistema de admisión 2025...
+    Bienvenido al proceso oficial de ingreso del Colegio CCNPT.
+    Desplázate para conocer más.
+  </div>
 
   <section id="informacion">
     <h2>Información General</h2>
-    <p>Entrega de las notas de octavo año (dos semestres) y noveno (primer semestre), las cuales deben venir firmadas y selladas por la institución.</p>
+    <p>
+      Para participar en el proceso de admisión, es necesario entregar las notas de:
+      <ul>
+        <li>Octavo año completo (dos semestres)</li>
+        <li>Noveno año (primer semestre)</li>
+      </ul>
+      Estas deben estar firmadas y selladas por la institución educativa correspondiente.
+    </p>
   </section>
 
   <section id="fechas">
     <h2>Fechas Importantes</h2>
     <ul>
-      <li>Entrega de notas: <strong>6 de agosto de 2025</strong></li>
-      <li>Hora: <strong>7:00 a.m. a 12:00 m.d.</strong></li>
+      <li><strong>Entrega de notas:</strong> 6 de agosto de 2025</li>
+      <li><strong>Horario:</strong> 7:00 a.m. a 12:00 m.d.</li>
     </ul>
   </section>
 
   <section id="ciberseguridad">
     <h2>Ciberseguridad</h2>
-    <p>Recuerda siempre verificar tus correos y enlaces antes de hacer clic. La institución nunca pedirá contraseñas personales.</p>
+    <p>
+      Evita fraudes. El Colegio CCNPT nunca te pedirá contraseñas por correo o mensajes. Verifica siempre las direcciones oficiales y no compartas tu información personal.
+    </p>
   </section>
 
   <script>
