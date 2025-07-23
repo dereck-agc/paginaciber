@@ -7,20 +7,20 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
-    * {
-      box-sizing: border-box;
-    }
-
+    /* Limpieza y base */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body, html {
-      margin: 0;
+      height: 100%;
       background: black;
       font-family: 'Share Tech Mono', monospace;
       color: #00FF00;
+      overflow: auto; /* permite scroll en móvil */
     }
 
+    /* Pantalla de booteo */
     #boot-screen {
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
+      inset: 0;
       background: black;
       color: #00FF00;
       padding: 1.5rem;
@@ -30,27 +30,28 @@
       overflow-y: auto;
     }
 
+    /* Contenido principal */
     #main-content {
       display: none;
-      padding: 1em;
-      margin-left: 240px;
-      overflow-y: auto;
-      min-height: 100vh;
       background-color: rgba(0,0,0,0.95);
+      padding: 2em 1em; /* reduce a 1em para móviles */
+      margin-left: 240px;
+      width: calc(100% - 240px);
+      min-height: 100vh;
+      overflow-y: auto;
     }
 
+    /* Menú fijo en escritorio */
     nav {
       position: fixed;
       top: 0;
       left: 0;
-      height: 100%;
       width: 220px;
+      height: 100%;
       background: rgba(0, 0, 0, 0.95);
-      display: flex;
-      flex-direction: column;
       padding: 1em;
-      z-index: 1000;
       overflow-y: auto;
+      z-index: 1000;
       transition: transform 0.3s ease-in-out;
     }
 
@@ -63,6 +64,7 @@
       color: #00FF00;
       text-decoration: none;
       padding: 0.5em 0;
+      display: block;
       cursor: pointer;
     }
 
@@ -70,12 +72,13 @@
       color: #66FF66;
     }
 
+    /* Secciones */
     .section {
-      padding: 2em;
-      margin: 3em auto;
+      display: none;
       background: black;
       opacity: 0.95;
-      display: none;
+      padding: 2em 1em;
+      margin: 3em auto;
       max-width: 700px;
       text-align: justify;
     }
@@ -85,13 +88,13 @@
     }
 
     h1, h2, h3 {
-      color: #00FF00;
       text-align: center;
       margin-bottom: 1rem;
     }
 
     p, ul {
       line-height: 1.6;
+      margin-bottom: 1rem;
     }
 
     ul {
@@ -99,10 +102,10 @@
     }
 
     ul li {
-      margin: 0.5em 0;
+      margin-bottom: 0.5em;
     }
 
-    /* Botón hamburguesa */
+    /* Botón menú (solo móviles) */
     #menu-toggle {
       display: none;
       position: fixed;
@@ -111,29 +114,27 @@
       background: none;
       border: 2px solid #00FF00;
       color: #00FF00;
-      padding: 0.5rem;
-      z-index: 1001;
+      padding: 0.4em 0.6em;
+      z-index: 1100;
       cursor: pointer;
     }
 
-    /* Responsive */
+    /* Adaptación móvil */
     @media (max-width: 768px) {
       #menu-toggle {
         display: block;
       }
-
       nav {
         transform: translateX(-100%);
         width: 80%;
+        height: 100%;
       }
-
       nav.open {
         transform: translateX(0);
       }
-
       #main-content {
         margin-left: 0;
-        padding-top: 4rem;
+        padding: 1em;
       }
     }
   </style>
@@ -143,7 +144,7 @@
   <!-- Pantalla de booteo -->
   <div id="boot-screen"></div>
 
-  <!-- Botón para mostrar el menú en móviles -->
+  <!-- Botón menú para móvil -->
   <button id="menu-toggle">☰ Menú</button>
 
   <!-- Menú lateral -->
@@ -161,20 +162,18 @@
 
   <!-- Contenido principal -->
   <div id="main-content">
-    <!-- Misma estructura de secciones que ya tienes -->
-    <!-- Pegado exactamente como está en tu HTML original -->
-
+    <!-- Aquí todas tus secciones EXACTAMENTE como están -->
+    <!-- Ejemplo de primera sección -->
     <div class="section" id="intro">
       <h1>¿POR QUÉ ESTUDIAR CIBERSEGURIDAD?</h1>
       <p>¿Sabías que en el mundo se necesitan más de 10 millones de personas para trabajar en Ciberseguridad?</p>
       <p>Hoy en día, hay una altísima demanda de profesionales capaces de proteger sistemas, redes e información digital, pero no hay suficientes personas preparadas.</p>
       <p>¡Y eso significa una gran oportunidad para vos!</p>
     </div>
-
-    <!-- (Otras secciones siguen igual...) -->
-
+    <!-- Resto de secciones... -->
   </div>
 
+  <!-- Script de efecto máquina de escribir y navegación -->
   <script>
     const bootLines = [
       "Iniciando Ciberseguridad v1.0...",
@@ -183,60 +182,55 @@
       "Inicializando interfaz de usuario...",
       "Preparando contenido principal...",
       "Listo, bienvenido al Colegio Técnico Profesional Jesús Ocaña Rojas.",
-      "Toca para continuar..."
+      "Presiona cualquier tecla o toca para continuar..."
     ];
 
     const bootScreen = document.getElementById("boot-screen");
     const mainContent = document.getElementById("main-content");
     const sections = document.querySelectorAll(".section");
-    const menuLinks = document.querySelectorAll("nav a");
-    const menuToggle = document.getElementById("menu-toggle");
+    const links = document.querySelectorAll("nav a");
+    const btn = document.getElementById("menu-toggle");
     const sidebar = document.getElementById("sidebar");
 
-    let lineIndex = 0;
-
+    let idx = 0;
     function typeNextLine() {
-      if (lineIndex < bootLines.length) {
-        const line = document.createElement("div");
-        bootScreen.appendChild(line);
-
-        let charIndex = 0;
-        const interval = setInterval(() => {
-          line.textContent += bootLines[lineIndex][charIndex];
-          charIndex++;
-          if (charIndex === bootLines[lineIndex].length) {
-            clearInterval(interval);
-            lineIndex++;
-            setTimeout(typeNextLine, 500);
+      if (idx < bootLines.length) {
+        const div = document.createElement("div");
+        bootScreen.appendChild(div);
+        let ci = 0;
+        const str = bootLines[idx];
+        const inter = setInterval(() => {
+          div.textContent += str[ci++];
+          if (ci === str.length) {
+            clearInterval(inter);
+            idx++;
+            setTimeout(typeNextLine, 400);
           }
         }, 30);
       } else {
-        document.addEventListener("keydown", showMainContent, { once: true });
-        document.addEventListener("touchstart", showMainContent, { once: true });
+        document.addEventListener("keydown", showContent, { once: true });
+        document.addEventListener("touchstart", showContent, { once: true });
       }
     }
 
-    function showMainContent() {
+    function showContent() {
       bootScreen.style.display = "none";
       mainContent.style.display = "block";
       showSection('intro');
     }
 
     function showSection(id) {
-      sections.forEach(section => {
-        section.classList.toggle("active", section.id === id);
-      });
+      sections.forEach(s => s.classList.toggle("active", s.id === id));
       if (window.innerWidth <= 768) sidebar.classList.remove("open");
     }
 
-    menuLinks.forEach(link => {
+    links.forEach(link => {
       link.addEventListener("click", () => {
-        const target = link.getAttribute("data-target");
-        showSection(target);
+        showSection(link.dataset.target);
       });
     });
 
-    menuToggle.addEventListener("click", () => {
+    btn.addEventListener("click", () => {
       sidebar.classList.toggle("open");
     });
 
