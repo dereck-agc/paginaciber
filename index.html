@@ -119,6 +119,29 @@
       #overlay.active { display: block; }
       #main-content { margin-left: 0; width: 100%; }
     }
+    /* Ajustar z-index para que el contenido esté por encima si el menú está cerrado */
+#main-content {
+  z-index: 1;
+}
+
+/* Asegurarse que el overlay no cubra el contenido cuando el menú está cerrado */
+#overlay {
+  z-index: 900; /* Menor que #main-content */
+}
+
+/* El menú debe estar por encima cuando está abierto */
+nav {
+  z-index: 1000;
+}
+
+/* Cuando el menú está oculto, que no interfiera */
+@media (max-width: 768px) {
+  nav.hidden {
+    transform: translateX(-100%);
+    z-index: 500;
+  }
+}
+
   </style>
 </head>
 <body>
