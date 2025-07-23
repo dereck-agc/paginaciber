@@ -165,11 +165,9 @@
 <body>
 
   <!-- Botón hamburguesa -->
-  <button class="hamburger" onclick="toggleMenu()">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
+<button id="menu-btn" style="position: fixed; top: 1rem; left: 1rem; z-index: 101; background: none; border: none; color: #0f0; font-size: 1.5rem; cursor: pointer;">
+  ☰
+</button>
 
     <!-- Pantalla de booteo -->
   <div id="boot-screen"></div>
@@ -278,72 +276,27 @@
   </div>
 
   <script>
-    const bootLines = [
-      "Iniciando Ciberseguridad v1.0...",
-      "Cargando módulos esenciales...",
-      "Estableciendo conexiones de red...",
-      "Inicializando interfaz de usuario...",
-      "Preparando contenido principal...",
-      "Listo, bienvenido al Colegio Técnico Profesional Jesús Ocaña Rojas.",
-      "Presiona cualquier tecla para continuar..."
-    ];
+  const menuBtn = document.getElementById('menu-btn');
+  const nav = document.querySelector('nav');
+  const mainContent = document.getElementById('main-content');
 
-    const bootScreen = document.getElementById("boot-screen");
-    const mainContent = document.getElementById("main-content");
-    const sections = document.querySelectorAll(".section");
-    const menuLinks = document.querySelectorAll("nav a");
-
-    let lineIndex = 0;
-
-    function typeNextLine() {
-      if (lineIndex < bootLines.length) {
-        const line = document.createElement("div");
-        bootScreen.appendChild(line);
-
-        let charIndex = 0;
-        const interval = setInterval(() => {
-          line.textContent += bootLines[lineIndex][charIndex];
-          charIndex++;
-          if (charIndex === bootLines[lineIndex].length) {
-            clearInterval(interval);
-            lineIndex++;
-            setTimeout(typeNextLine, 500);
-          }
-        }, 30);
-      } else {
-        document.addEventListener("keydown", showMainContent);
-        setTimeout(showMainContent, 3000);
-      }
+  menuBtn.addEventListener('click', () => {
+    nav.classList.toggle('hidden');
+    if (nav.classList.contains('hidden')) {
+      mainContent.style.marginLeft = '0';
+    } else {
+      mainContent.style.marginLeft = '220px';
     }
+  });
 
-    function showMainContent() {
-      bootScreen.style.display = "none";
-      mainContent.style.display = "block";
-      showSection('intro');
-    }
-
-    function showSection(id) {
-      sections.forEach(section => {
-        section.classList.toggle("active", section.id === id);
-      });
-
-      // Ocultar menú en móviles al seleccionar
-      document.getElementById("sidebar").classList.remove("show");
-    }
-
-    // Mostrar/Ocultar menú lateral en móviles
-    function toggleMenu() {
-      document.getElementById("sidebar").classList.toggle("show");
-    }
-
-    menuLinks.forEach(link => {
-      link.addEventListener("click", () => {
-        const target = link.getAttribute("data-target");
-        showSection(target);
-      });
+  // Cierra el menú cuando se toca un enlace (opcional)
+  const links = document.querySelectorAll('nav a');
+  links.forEach(link => {
+    link.addEventListener('click', () => {
+      nav.classList.add('hidden');
+      mainContent.style.marginLeft = '0';
     });
-
-    typeNextLine();
-  </script>
+  });
+</script>
 </body>
 </html>
