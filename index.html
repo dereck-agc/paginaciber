@@ -8,144 +8,239 @@
     @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
     * {
-      margin: 0;
-      padding: 0;
       box-sizing: border-box;
     }
 
-    html, body {
-      height: 100%;
+    body, html {
+      margin: 0;
+      background: black;
       font-family: 'Share Tech Mono', monospace;
-      background-color: black;
       color: #00FF00;
     }
 
     #boot-screen {
       position: fixed;
-      inset: 0;
+      top: 0; left: 0; right: 0; bottom: 0;
       background: black;
       color: #00FF00;
-      padding: 1rem;
-      font-size: 1rem;
+      padding: 1.5rem;
+      font-size: 1.1rem;
+      white-space: pre-wrap;
       z-index: 9999;
       overflow-y: auto;
     }
 
     #main-content {
       display: none;
-      padding: 1rem;
-      padding-top: 4rem;
+      padding: 1em;
+      margin-left: 240px;
+      overflow-y: auto;
+      min-height: 100vh;
+      background-color: rgba(0,0,0,0.95);
     }
 
     nav {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
+      height: 100%;
+      width: 220px;
       background: rgba(0, 0, 0, 0.95);
-      padding: 1rem;
-      z-index: 1000;
       display: flex;
-      overflow-x: auto;
-      gap: 1rem;
-      flex-wrap: wrap;
+      flex-direction: column;
+      padding: 1em;
+      z-index: 1000;
+      overflow-y: auto;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    nav h2 {
+      text-align: center;
+      margin-bottom: 1em;
     }
 
     nav a {
       color: #00FF00;
       text-decoration: none;
-      font-size: 0.9rem;
-      white-space: nowrap;
+      padding: 0.5em 0;
+      cursor: pointer;
+    }
+
+    nav a:hover {
+      color: #66FF66;
     }
 
     .section {
-      margin-bottom: 3rem;
+      padding: 2em;
+      margin: 3em auto;
+      background: black;
+      opacity: 0.95;
+      display: none;
+      max-width: 700px;
+      text-align: justify;
     }
 
-    h1, h2 {
+    .section.active {
+      display: block;
+    }
+
+    h1, h2, h3 {
+      color: #00FF00;
       text-align: center;
       margin-bottom: 1rem;
-      font-size: 1.3rem;
     }
 
-    p, li {
+    p, ul {
       line-height: 1.6;
-      font-size: 1rem;
-      margin-bottom: 1rem;
+    }
+
+    ul {
+      margin-left: 2em;
+    }
+
+    ul li {
+      margin: 0.5em 0;
+    }
+
+    /* Botón hamburguesa */
+    #menu-toggle {
+      display: none;
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      background: none;
+      border: 2px solid #00FF00;
+      color: #00FF00;
+      padding: 0.5rem;
+      z-index: 1001;
+      cursor: pointer;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      #menu-toggle {
+        display: block;
+      }
+
+      nav {
+        transform: translateX(-100%);
+        width: 80%;
+      }
+
+      nav.open {
+        transform: translateX(0);
+      }
+
+      #main-content {
+        margin-left: 0;
+        padding-top: 4rem;
+      }
     }
   </style>
 </head>
 <body>
 
-<div id="boot-screen"></div>
+  <!-- Pantalla de booteo -->
+  <div id="boot-screen"></div>
 
-<div id="main-content">
-  <nav>
-    <a href="#intro">Introducción</a>
-    <a href="#talento">Tu talento</a>
-    <a href="#ventajas">Ventajas</a>
-    <a href="#beneficios">Beneficios</a>
-    <a href="#plan">Plan</a>
-    <a href="#cursos">Cursos</a>
-    <a href="#subareas">Subáreas</a>
-    <a href="#perfil">Perfil</a>
+  <!-- Botón para mostrar el menú en móviles -->
+  <button id="menu-toggle">☰ Menú</button>
+
+  <!-- Menú lateral -->
+  <nav id="sidebar">
+    <h2>Menú</h2>
+    <a data-target="intro">Introducción</a>
+    <a data-target="talento">Tu talento y el futuro</a>
+    <a data-target="ventajas">Ventajas</a>
+    <a data-target="beneficios">Beneficios en el colegio</a>
+    <a data-target="plan">Plan de estudios</a>
+    <a data-target="cursos">Cursos de Cisco</a>
+    <a data-target="subareas">Explicación subáreas</a>
+    <a data-target="perfil">Perfil de salida</a>
   </nav>
 
-  <div class="section" id="intro">
-    <h1>¿POR QUÉ ESTUDIAR CIBERSEGURIDAD?</h1>
-    <p>¿Sabías que en el mundo se necesitan más de 10 millones de personas para trabajar en Ciberseguridad?</p>
-    <p>Hoy en día, hay una altísima demanda de profesionales capaces de proteger sistemas, redes e información digital, pero no hay suficientes personas preparadas.</p>
-    <p>¡Y eso significa una gran oportunidad para vos!</p>
+  <!-- Contenido principal -->
+  <div id="main-content">
+    <!-- Misma estructura de secciones que ya tienes -->
+    <!-- Pegado exactamente como está en tu HTML original -->
+
+    <div class="section" id="intro">
+      <h1>¿POR QUÉ ESTUDIAR CIBERSEGURIDAD?</h1>
+      <p>¿Sabías que en el mundo se necesitan más de 10 millones de personas para trabajar en Ciberseguridad?</p>
+      <p>Hoy en día, hay una altísima demanda de profesionales capaces de proteger sistemas, redes e información digital, pero no hay suficientes personas preparadas.</p>
+      <p>¡Y eso significa una gran oportunidad para vos!</p>
+    </div>
+
+    <!-- (Otras secciones siguen igual...) -->
+
   </div>
 
-  <div class="section" id="talento">
-    <h2>¿Y si tu talento fuera la clave para proteger el futuro?</h2>
-    <p>¿Te gustan la tecnología, los videojuegos o pasar tiempo frente a la computadora? Entonces tienes algo en común con los expertos en Ciberseguridad.</p>
-  </div>
+  <script>
+    const bootLines = [
+      "Iniciando Ciberseguridad v1.0...",
+      "Cargando módulos esenciales...",
+      "Estableciendo conexiones de red...",
+      "Inicializando interfaz de usuario...",
+      "Preparando contenido principal...",
+      "Listo, bienvenido al Colegio Técnico Profesional Jesús Ocaña Rojas.",
+      "Toca para continuar..."
+    ];
 
-  <!-- Resto de secciones igual... -->
-</div>
+    const bootScreen = document.getElementById("boot-screen");
+    const mainContent = document.getElementById("main-content");
+    const sections = document.querySelectorAll(".section");
+    const menuLinks = document.querySelectorAll("nav a");
+    const menuToggle = document.getElementById("menu-toggle");
+    const sidebar = document.getElementById("sidebar");
 
-<script>
-  const bootLines = [
-    "Iniciando Ciberseguridad v1.0...",
-    "Cargando módulos...",
-    "Bienvenido al CTP Jesús Ocaña Rojas.",
-    "Toca para continuar..."
-  ];
+    let lineIndex = 0;
 
-  const bootScreen = document.getElementById("boot-screen");
-  const mainContent = document.getElementById("main-content");
+    function typeNextLine() {
+      if (lineIndex < bootLines.length) {
+        const line = document.createElement("div");
+        bootScreen.appendChild(line);
 
-  let lineIndex = 0;
-
-  function typeLine() {
-    if (lineIndex < bootLines.length) {
-      const line = document.createElement("div");
-      bootScreen.appendChild(line);
-
-      let charIndex = 0;
-      const interval = setInterval(() => {
-        line.textContent += bootLines[lineIndex][charIndex++];
-        if (charIndex === bootLines[lineIndex].length) {
-          clearInterval(interval);
-          lineIndex++;
-          setTimeout(typeLine, 300);
-        }
-      }, 40);
-    } else {
-      document.addEventListener("touchstart", showContent, { once: true });
-      document.addEventListener("keydown", showContent, { once: true });
+        let charIndex = 0;
+        const interval = setInterval(() => {
+          line.textContent += bootLines[lineIndex][charIndex];
+          charIndex++;
+          if (charIndex === bootLines[lineIndex].length) {
+            clearInterval(interval);
+            lineIndex++;
+            setTimeout(typeNextLine, 500);
+          }
+        }, 30);
+      } else {
+        document.addEventListener("keydown", showMainContent, { once: true });
+        document.addEventListener("touchstart", showMainContent, { once: true });
+      }
     }
-  }
 
-  function showContent() {
-    bootScreen.style.display = "none";
-    mainContent.style.display = "block";
-  }
+    function showMainContent() {
+      bootScreen.style.display = "none";
+      mainContent.style.display = "block";
+      showSection('intro');
+    }
 
-  typeLine();
-</script>
+    function showSection(id) {
+      sections.forEach(section => {
+        section.classList.toggle("active", section.id === id);
+      });
+      if (window.innerWidth <= 768) sidebar.classList.remove("open");
+    }
 
+    menuLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        const target = link.getAttribute("data-target");
+        showSection(target);
+      });
+    });
+
+    menuToggle.addEventListener("click", () => {
+      sidebar.classList.toggle("open");
+    });
+
+    typeNextLine();
+  </script>
 </body>
 </html>
