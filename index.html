@@ -223,71 +223,123 @@
   </div>
 
   <script>
-    const bootLines = [
-      "Iniciando Ciberseguridad v1.0...",
-      "Cargando módulos esenciales...",
-      "Estableciendo conexiones de red...",
-      "Inicializando interfaz de usuario...",
-      "Preparando contenido principal...",
-      "Listo, bienvenido al Colegio Técnico Profesional Jesús Ocaña Rojas.",
-      "Presiona cualquier tecla para continuar..."
-    ];
+  const bootLines = [
+    "Iniciando Ciberseguridad v1.0...",
+    "Cargando módulos esenciales...",
+    "Estableciendo conexiones de red...",
+    "Inicializando interfaz de usuario...",
+    "Preparando contenido principal...",
+    "Listo, bienvenido al Colegio Técnico Profesional Jesús Ocaña Rojas.",
+    "Presiona cualquier tecla para continuar..."
+  ];
 
-    const bootScreen = document.getElementById("boot-screen");
-    const mainContent = document.getElementById("main-content");
-    const sections = document.querySelectorAll(".section");
-    const menuLinks = document.querySelectorAll("nav a");
+  const bootScreen = document.getElementById("boot-screen");
+  const mainContent = document.getElementById("main-content");
+  const sections = document.querySelectorAll(".section");
+  const menuLinks = document.querySelectorAll("nav a");
 
-    let lineIndex = 0;
+  let lineIndex = 0;
 
-    function typeNextLine() {
-      if (lineIndex < bootLines.length) {
-        const line = document.createElement("div");
-        bootScreen.appendChild(line);
+  function typeNextLine() {
+    if (lineIndex < bootLines.length) {
+      const line = document.createElement("div");
+      bootScreen.appendChild(line);
 
-        let charIndex = 0;
-        const interval = setInterval(() => {
-          line.textContent += bootLines[lineIndex][charIndex];
-          charIndex++;
-          if (charIndex === bootLines[lineIndex].length) {
-            clearInterval(interval);
-            lineIndex++;
-            setTimeout(typeNextLine, 500);
-          }
-        }, 30);
+      let charIndex = 0;
+      const interval = setInterval(() => {
+        line.textContent += bootLines[lineIndex][charIndex];
+        charIndex++;
+        if (charIndex === bootLines[lineIndex].length) {
+          clearInterval(interval);
+          lineIndex++;
+          setTimeout(typeNextLine, 500);
+        }
+      }, 30);
+    } else {
+      document.addEventListener("keydown", showMainContent);
+      setTimeout(showMainContent, 3000);
+    }
+  }
+
+  function showMainContent() {
+    bootScreen.style.display = "none";
+    mainContent.style.display = "block";
+    showSection('intro');
+  }
+
+  function typeWriterEffect(element, text, callback) {
+    let i = 0;
+    const speed = 15;
+    element.innerHTML = ''; // Limpia primero
+    const cursor = document.createElement("span");
+    cursor.id = "typewriter-cursor";
+    cursor.textContent = "|";
+    element.appendChild(cursor);
+
+    function type() {
+      if (i < text.length) {
+        cursor.insertAdjacentText('beforebegin', text.charAt(i));
+        i++;
+        setTimeout(type, speed);
       } else {
-        document.addEventListener("keydown", showMainContent);
-        setTimeout(showMainContent, 3000);
+        callback && callback();
+      }
+    }
+    type();
+  }
+
+  function eraseEffect(element, callback) {
+    const text = element.textContent;
+    let i = text.length;
+    const speed = 10;
+
+    function erase() {
+      if (i > 0) {
+        element.textContent = text.substring(0, i - 1);
+        i--;
+        setTimeout(erase, speed);
+      } else {
+        callback();
       }
     }
 
-    function showMainContent() {
-      bootScreen.style.display = "none";
-      mainContent.style.display = "block";
-      showSection('intro'); // Muestra la primera sección al iniciar
-    }
+    erase();
+  }
 
-    function showSection(id) {
-      sections.forEach(section => {
-        if (section.id === id) {
-          section.classList.add("active");
-        } else {
+  function showSection(id) {
+    sections.forEach(section => {
+      const content = section.innerHTML;
+      if (section.classList.contains("active") && section.id !== id) {
+        // Si la sección está visible y no es la nueva, la ocultamos con efecto de borrado
+        const tempContent = section.innerHTML;
+        eraseEffect(section, () => {
           section.classList.remove("active");
-        }
-      });
-    }
-
-    // Añadir evento click a cada enlace del menú
-    menuLinks.forEach(link => {
-      link.addEventListener("click", () => {
-        const target = link.getAttribute("data-target");
-        showSection(target);
-      });
+          section.innerHTML = tempContent; // Restauramos para futuras visitas
+        });
+      }
     });
 
-    // Iniciar efecto de booteo
-    typeNextLine();
-  </script>
+    const newSection = document.getElementById(id);
+    const temp = newSection.innerHTML;
+    newSection.innerHTML = ''; // Limpia antes de escribir
+    newSection.classList.add("active");
+    typeWriterEffect(newSection, stripHTML(temp));
+  }
 
+  function stripHTML(html) {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    return div.textContent || div.innerText || "";
+  }
+
+  menuLinks.forEach(link => {
+    link.addEventListener("click", () => {
+      const target = link.getAttribute("data-target");
+      showSection(target);
+    });
+  });
+
+  typeNextLine();
+</script>
 </body>
 </html>
