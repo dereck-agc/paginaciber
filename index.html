@@ -2,129 +2,173 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admisión CCNPT 2025</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Booteo con Menú</title>
   <style>
     body {
-      background: #000;
-      color: #0f0;
-      font-family: 'Courier New', Courier, monospace;
       margin: 0;
-      padding: 0;
+      font-family: monospace;
+      background: black;
+      color: #00FF00;
+      overflow: hidden;
     }
 
-    #menu-btn {
+    #boot-text {
+      white-space: pre-wrap;
+      padding: 2em;
+      font-size: 1rem;
+    }
+
+    #main-content {
+      display: none;
+      background-color: rgba(0, 0, 0, 0.95);
+      color: #00FF00;
+      padding: 2em;
+      margin-left: 220px;
+      width: calc(100% - 220px);
+      height: 100vh;
+      overflow-y: auto;
+      box-sizing: border-box;
+      transition: margin-left 0.3s ease, width 0.3s ease;
+    }
+
+    nav {
       position: fixed;
-      top: 10px;
-      right: 10px;
-      z-index: 999;
-      background: #000;
-      color: #0f0;
-      border: 1px solid #0f0;
-      padding: 6px 10px;
-      font-size: 16px;
-      cursor: pointer;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 220px;
+      background: rgba(0, 0, 0, 0.95);
+      display: flex;
+      flex-direction: column;
+      padding: 1em;
+      box-sizing: border-box;
+      z-index: 100;
+      overflow-y: auto;
+      transition: transform 0.3s ease;
     }
 
-    #menu {
+    nav h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      color: #00FF00;
+    }
+
+    nav a {
+      color: #00FF00;
+      text-decoration: none;
+      margin: 0.5em 0;
+      font-size: 1rem;
+    }
+
+    .section {
+      padding: 2em;
+      margin-bottom: 3em;
+      border-bottom: 1px solid #00ff00;
+    }
+
+    #hamburger {
       display: none;
       position: fixed;
-      top: 50px;
-      right: 10px;
-      background: #111;
-      border: 1px solid #0f0;
-      padding: 10px;
-      z-index: 998;
+      top: 1em;
+      left: 1em;
+      width: 30px;
+      height: 30px;
+      z-index: 200;
+      cursor: pointer;
+      background: none;
+      border: none;
     }
 
-    #menu a {
-      color: #0f0;
-      text-decoration: none;
-      display: block;
-      margin-bottom: 5px;
+    #hamburger div {
+      width: 100%;
+      height: 4px;
+      background: #00FF00;
+      margin: 4px 0;
     }
 
-    #menu a:hover {
-      text-decoration: underline;
-    }
+    @media (max-width: 768px) {
+      nav {
+        transform: translateX(-100%);
+        width: 160px;
+      }
 
-    .terminal {
-      padding: 80px 20px 40px 20px;
-      white-space: pre-line;
-      animation: typing 3s steps(40, end);
-      overflow: hidden;
-      border-right: 2px solid #0f0;
-      max-width: 100%;
-    }
+      nav.open {
+        transform: translateX(0);
+      }
 
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
-    }
+      #main-content {
+        margin-left: 0;
+        width: 100%;
+        padding: 1em;
+      }
 
-    section {
-      padding: 40px 20px;
-      border-top: 1px solid #0f0;
-    }
-
-    h2 {
-      color: #0f0;
-    }
-
-    ul {
-      list-style-type: square;
+      #hamburger {
+        display: block;
+      }
     }
   </style>
 </head>
 <body>
-  <button id="menu-btn">☰ Menú</button>
-  <nav id="menu">
-    <a href="#inicio">Inicio</a>
-    <a href="#informacion">Información</a>
-    <a href="#fechas">Fechas</a>
-    <a href="#ciberseguridad">Ciberseguridad</a>
+
+  <button id="hamburger" onclick="toggleMenu()">
+    <div></div>
+    <div></div>
+    <div></div>
+  </button>
+
+  <nav id="sidebar">
+    <h2>Menú</h2>
+    <a href="#seccion1">Sección 1</a>
+    <a href="#seccion2">Sección 2</a>
+    <a href="#seccion3">Sección 3</a>
   </nav>
 
-  <div class="terminal" id="inicio">
-    Cargando sistema de admisión 2025...
-    Bienvenido al proceso oficial de ingreso del Colegio CCNPT.
-    Desplázate para conocer más.
+  <div id="boot-text"></div>
+
+  <div id="main-content">
+    <div id="seccion1" class="section">
+      <h1>Sección 1</h1>
+      <p>Contenido de la primera sección.</p>
+    </div>
+    <div id="seccion2" class="section">
+      <h1>Sección 2</h1>
+      <p>Contenido de la segunda sección.</p>
+    </div>
+    <div id="seccion3" class="section">
+      <h1>Sección 3</h1>
+      <p>Contenido de la tercera sección.</p>
+    </div>
   </div>
 
-  <section id="informacion">
-    <h2>Información General</h2>
-    <p>
-      Para participar en el proceso de admisión, es necesario entregar las notas de:
-      <ul>
-        <li>Octavo año completo (dos semestres)</li>
-        <li>Noveno año (primer semestre)</li>
-      </ul>
-      Estas deben estar firmadas y selladas por la institución educativa correspondiente.
-    </p>
-  </section>
-
-  <section id="fechas">
-    <h2>Fechas Importantes</h2>
-    <ul>
-      <li><strong>Entrega de notas:</strong> 6 de agosto de 2025</li>
-      <li><strong>Horario:</strong> 7:00 a.m. a 12:00 m.d.</li>
-    </ul>
-  </section>
-
-  <section id="ciberseguridad">
-    <h2>Ciberseguridad</h2>
-    <p>
-      Evita fraudes. El Colegio CCNPT nunca te pedirá contraseñas por correo o mensajes. Verifica siempre las direcciones oficiales y no compartas tu información personal.
-    </p>
-  </section>
-
   <script>
-    const btn = document.getElementById('menu-btn');
-    const menu = document.getElementById('menu');
+    const bootLines = [
+      "Inicializando sistema...",
+      "Cargando módulos...",
+      "Verificando integridad...",
+      "Sistema operativo cargado.",
+      "Bienvenido."
+    ];
 
-    btn.addEventListener('click', () => {
-      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-    });
+    const bootText = document.getElementById("boot-text");
+    let index = 0;
+
+    function typeLine() {
+      if (index < bootLines.length) {
+        bootText.textContent += bootLines[index] + "\n";
+        index++;
+        setTimeout(typeLine, 700);
+      } else {
+        document.getElementById("main-content").style.display = "block";
+        bootText.style.display = "none";
+      }
+    }
+
+    typeLine();
+
+    function toggleMenu() {
+      document.getElementById("sidebar").classList.toggle("open");
+    }
   </script>
 </body>
 </html>
