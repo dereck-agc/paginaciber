@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>¿Por qué estudiar Ciberseguridad?</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+    body, html {
+      height: 100%;
+      margin: 0;
+      background: black;
+      font-family: 'Share Tech Mono', monospace;
+      color: #00FF00;
+      overflow: hidden;
+    }
+
+    /* Pantalla de booteo */
+    #boot-screen {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: black;
+      color: #00FF00;
+      padding: 1.5rem;
+      font-size: 1.1rem;
+      white-space: pre-wrap;
+      z-index: 9999;
+    }
+
+    /* Contenido principal con espacio para menú lateral */
+    #main-content {
+      display: none;
+      background-color: rgba(0,0,0,0.95);
+      color: #00FF00;
+      padding: 2em;
+      margin-left: 240px;
+      width: calc(100% - 240px);
+      height: 100vh;
+      overflow-y: auto;
+      box-sizing: border-box;
+    }
+
+    /* Menú lateral fijo */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 220px;
+      background: rgba(0, 0, 0, 0.95);
+      display: flex;
+      flex-direction: column;
+      padding: 1em;
+      box-sizing: border-box;
+      z-index: 100;
+      overflow-y: auto;
+    }
+
+    nav h2 {
+      text-align: center;
+      margin-bottom: 1em;
+      font-size: 1.1rem;
+      color: #00FF00;
+    }
+
+    nav a {
+      color: #00FF00;
+      text-decoration: none;
+      padding: 0.5em 0;
+      display: block;
+      cursor: pointer;
+    }
+
+    nav a:hover {
+      color: #66FF66;
+    }
+
+    /* Secciones del contenido */
+    .section {
+      padding: 2em;
+      margin: 3em auto;
+      background: black;
+      opacity: 0.95;
+      display: none; /* Por defecto ocultas */
+      max-width: 700px;
+      height: auto;
+      overflow-y: auto;
+      box-sizing: border-box;
+      text-align: justify; /* Justificado */
+    }
+
+    .section.active {
+      display: block; /* Mostrar la sección activa */
+    }
+
+    /* Centramos los títulos y subtítulos */
+    h1, h2, h3 {
+      color: #00FF00;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    p, ul {
+      color: #00FF00;
+      line-height: 1.6;
+    }
+
+    ul {
+      margin-left: 2em;
+    }
+    ul li {
+      margin: 0.5em 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Pantalla de booteo -->
+  <div id="boot-screen"></div>
+
+  <!-- Contenido principal -->
+  <div id="main-content">
+
+    <!-- Menú lateral -->
+    <nav>
+      <h2>Menú</h2>
+      <a data-target="intro">Introducción</a>
+      <a data-target="talento">Tu talento y el futuro</a>
+      <a data-target="ventajas">Ventajas</a>
+      <a data-target="beneficios">Beneficios en el colegio</a>
+      <a data-target="plan">Plan de estudios</a>
+      <a data-target="cursos">Cursos de Cisco</a>
+      <a data-target="subareas">Explicación subáreas</a>
+      <a data-target="perfil">Perfil de salida</a>
+    </nav>
+
+    <!-- Sección 1 -->
+    <div class="section" id="intro">
+      <h1>¿POR QUÉ ESTUDIAR CIBERSEGURIDAD?</h1>
+      <p>¿Sabías que en el mundo se necesitan más de 10 millones de personas para trabajar en Ciberseguridad?</p>
+      <p>Hoy en día, hay una altísima demanda de profesionales capaces de proteger sistemas, redes e información digital, pero no hay suficientes personas preparadas.</p>
+      <p>¡Y eso significa una gran oportunidad para vos!</p>
+    </div>
+
+    <!-- Sección 2 -->
+    <div class="section" id="talento">
+      <h2>¿Y si tu talento fuera la clave para proteger el futuro?</h2>
+      <p>¿Te gustan la tecnología, los videojuegos o pasar tiempo frente a la computadora? Entonces tienes algo en común con los expertos en Ciberseguridad. Pero esto va más allá de saber usar una computadora: se trata de proteger información, personas, empresas y hasta gobiernos de los ataques digitales que ocurren todos los días en el mundo.</p>
+      <p>Cada vez más, el mundo está conectado: redes sociales, bancos en línea, plataformas educativas, sistemas de salud… Y detrás cuidando que todo funcione de manera segura están los profesionales en Ciberseguridad.</p>
+    </div>
+
+    <!-- Sección 3 -->
+    <div class="section" id="ventajas">
+      <h2>Ventajas de estudiar Ciberseguridad</h2>
+      <ul>
+        <li>Es una carrera del futuro: hay más demanda de profesionales de ciberseguridad que personas preparadas para el trabajo.</li>
+        <li>Obtienes experiencia desde el colegio: en un colegio técnico aprendes haciendo, no solo viendo.</li>
+        <li>Puedes trabajar desde cualquier parte: incluso desde tu casa, con empresas de Costa Rica o del extranjero.</li>
+        <li>Es emocionante: enfrentas retos reales, resuelves problemas y usas tu ingenio para proteger sistemas.</li>
+      </ul>
+    </div>
+
+    <!-- Sección 4 -->
+    <div class="section" id="beneficios">
+      <h2>Beneficios de estudiar Ciberseguridad en el colegio</h2>
+      <ul>
+        <li>Te da las bases para seguir en la universidad, empezar a trabajar joven o incluso emprender tu propio negocio.</li>
+        <li>Puedes iniciar trabajando en una empresa de Costa Rica y adquirir experiencia.</li>
+        <li>Costa Rica necesita más jóvenes en Ciberseguridad, ya que las amenazas han aumentado.</li>
+        <li>Formarás parte de la estrategia global para fortalecer la ciberdefensa en Latinoamérica.</li>
+        <li>Puedes llevar cursos de Cisco de manera gratuita, enfocados en Ciberseguridad.</li>
+      </ul>
+    </div>
+
+    <!-- Sección 5 -->
+    <div class="section" id="plan">
+      <h2>Plan de estudios</h2>
+      <p>Ministerio de Educación Pública</p>
+      <p><strong>Asignaturas por nivel:</strong></p>
+      <ul>
+        <li><b>Tecnologías de la información:</b> 4 horas en décimo.</li>
+        <li><b>Emprendimiento e innovación aplicada a la Ciberseguridad:</b> 4 horas en undécimo.</li>
+        <li><b>Seguridad de la información y gestión administrativa:</b> 4 horas en duodécimo.</li>
+        <li><b>Operaciones ciberseguras:</b> 8 horas por año.</li>
+        <li><b>Programación y prueba de seguridad del software:</b> 8 horas por año.</li>
+        <li><b>English Oriented to Cybersecurity:</b> 4 horas por año.</li>
+        <li><b>Práctica profesional:</b> 320 horas en duodécimo.</li>
+      </ul>
+    </div>
+
+    <!-- Sección 6 -->
+    <div class="section" id="cursos">
+      <h2>Cursos de Cisco incluidos</h2>
+      <p><strong>Décimo:</strong> Fundamentos de Ciberseguridad, IT Essentials, CCNA1 v7 (Introducción a las Redes), Python, Internet de las cosas.</p>
+      <p><strong>Undécimo:</strong> CCNA2 v7 (Switching, Routing y Wireless Essentials), NDG Linux Unhatched y NDG Fundamentos de Linux.</p>
+      <p><strong>Duodécimo:</strong> CyberOps Associate.</p>
+    </div>
+
+    <!-- Sección 7 -->
+    <div class="section" id="subareas">
+      <h2>Explicación breve de cada subárea</h2>
+      <ul>
+        <li><b>Tecnologías de la información:</b> Uso de herramientas digitales, análisis, comunicación y protección de datos.</li>
+        <li><b>Emprendimiento e innovación:</b> Desarrollo de competencias para crear modelos de negocio y proyectos.</li>
+        <li><b>Seguridad de la información y gestión:</b> Funcionamiento de un SOC, tácticas y marco legal.</li>
+        <li><b>Operaciones ciberseguras:</b> Monitoreo y control en Centros de Operaciones de Seguridad.</li>
+        <li><b>Programación y prueba de seguridad:</b> Desarrollo seguro de software, pruebas y certificaciones.</li>
+        <li><b>English Oriented to Cybersecurity:</b> Inglés técnico aplicado a escenarios reales.</li>
+        <li><b>Práctica profesional:</b> 320 horas en empresas públicas o privadas para experiencia real.</li>
+      </ul>
+    </div>
+
+    <!-- Sección 8 -->
+    <div class="section" id="perfil">
+      <h2>Perfil de salida</h2>
+      <p><b>Competencia general:</b> Instalar, configurar y monitorear sistemas, defender y responder a incidentes con ética.</p>
+      <p><b>Competencias específicas:</b> Configurar redes, defender infraestructuras, instalar sistemas operativos, monitorear seguridad.</p>
+      <p><b>Competencias genéricas:</b> Emprendimiento, monitoreo de TI, defensa de datos, uso de tecnologías digitales, trabajo en equipo.</p>
+      <p><b>Competencias humanas:</b> Autocontrol, compromiso ético, responsabilidad, atención al cliente, liderazgo, innovación y pensamiento crítico.</p>
+    </div>
+
+  </div>
+
+  <script>
+    const bootLines = [
+      "Iniciando Ciberseguridad v1.0...",
+      "Cargando módulos esenciales...",
+      "Estableciendo conexiones de red...",
+      "Inicializando interfaz de usuario...",
+      "Preparando contenido principal...",
+      "Listo, bienvenido al Colegio Técnico Profesional Jesús Ocaña Rojas.",
+      "Presiona cualquier tecla para continuar..."
+    ];
+
+    const bootScreen = document.getElementById("boot-screen");
+    const mainContent = document.getElementById("main-content");
+    const sections = document.querySelectorAll(".section");
+    const menuLinks = document.querySelectorAll("nav a");
+
+    let lineIndex = 0;
+
+    function typeNextLine() {
+      if (lineIndex < bootLines.length) {
+        const line = document.createElement("div");
+        bootScreen.appendChild(line);
+
+        let charIndex = 0;
+        const interval = setInterval(() => {
+          line.textContent += bootLines[lineIndex][charIndex];
+          charIndex++;
+          if (charIndex === bootLines[lineIndex].length) {
+            clearInterval(interval);
+            lineIndex++;
+            setTimeout(typeNextLine, 500);
+          }
+        }, 30);
+      } else {
+        document.addEventListener("keydown", showMainContent);
+        setTimeout(showMainContent, 3000);
+      }
+    }
+
+    function showMainContent() {
+      bootScreen.style.display = "none";
+      mainContent.style.display = "block";
+      showSection('intro'); // Muestra la primera sección al iniciar
+    }
+
+    function showSection(id) {
+      sections.forEach(section => {
+        if (section.id === id) {
+          section.classList.add("active");
+        } else {
+          section.classList.remove("active");
+        }
+      });
+    }
+
+    // Añadir evento click a cada enlace del menú
+    menuLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        const target = link.getAttribute("data-target");
+        showSection(target);
+      });
+    });
+
+    // Iniciar efecto de booteo
+    typeNextLine();
+  </script>
+
+</body>
+</html>
