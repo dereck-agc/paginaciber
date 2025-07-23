@@ -7,237 +7,145 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
-    body, html {
-      height: 100%;
+    * {
       margin: 0;
-      background: black;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
       font-family: 'Share Tech Mono', monospace;
+      background-color: black;
       color: #00FF00;
-      overflow: hidden;
     }
 
     #boot-screen {
-      position: fixed; inset: 0;
+      position: fixed;
+      inset: 0;
       background: black;
       color: #00FF00;
-      padding: 1.5rem;
-      font-size: 1.1rem;
-      white-space: pre-wrap;
+      padding: 1rem;
+      font-size: 1rem;
       z-index: 9999;
       overflow-y: auto;
     }
 
     #main-content {
       display: none;
-      background-color: rgba(0,0,0,0.95);
-      color: #00FF00;
-      padding: 1em;
-      box-sizing: border-box;
-      min-height: 100vh;
-      margin-left: 240px;
-      width: calc(100% - 240px);
-      overflow-y: auto;
-      transition: margin-left 0.3s ease;
-      z-index: 1; /* Asegura visibilidad del texto */
+      padding: 1rem;
+      padding-top: 4rem;
     }
 
     nav {
       position: fixed;
-      top: 0; left: 0;
-      height: 100%;
-      width: 220px;
-      background: rgba(0,0,0,0.95);
-      padding: 1em;
-      box-sizing: border-box;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      padding: 1rem;
       z-index: 1000;
-      overflow-y: auto;
-      transform: translateX(0);
-      transition: transform 0.3s ease;
+      display: flex;
+      overflow-x: auto;
+      gap: 1rem;
+      flex-wrap: wrap;
     }
 
-    nav.hidden {
-      transform: translateX(-100%);
-      z-index: 500;
+    nav a {
+      color: #00FF00;
+      text-decoration: none;
+      font-size: 0.9rem;
+      white-space: nowrap;
     }
-
-    nav h2 { text-align: center; margin-bottom: 1rem; font-size: 1.1rem; }
-    nav a { display: block; padding: 0.5em 0; text-decoration: none; color: #00FF00; }
-    nav a:hover { color: #66FF66; }
 
     .section {
-      display: none;
-      padding: 2em;
-      max-width: 700px;
-      margin: 3em auto;
-      background: black;
-      opacity: 0.95;
-      text-align: justify;
-      box-sizing: border-box;
+      margin-bottom: 3rem;
     }
 
-    .section.active { display: block; }
-
-    h1, h2, h3 {
+    h1, h2 {
       text-align: center;
       margin-bottom: 1rem;
-      color: #00FF00;
+      font-size: 1.3rem;
     }
 
-    p, ul {
+    p, li {
       line-height: 1.6;
-      color: #00FF00;
+      font-size: 1rem;
+      margin-bottom: 1rem;
     }
-
-    ul { margin-left: 2em; }
-    ul li { margin: 0.5em 0; }
-
-    /* Botón y overlay para móviles */
-    #menu-toggle {
-      display: none;
-      position: fixed;
-      top: 10px; left: 10px;
-      background: none;
-      border: 2px solid #00FF00;
-      color: #00FF00;
-      font-size: 1.2rem;
-      padding: 0.4em 0.7em;
-      z-index: 1100;
-      cursor: pointer;
-    }
-
-    #overlay {
-      display: none;
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.5);
-      z-index: 900;
-    }
-
-    @media (max-width: 768px) {
-      nav { transform: translateX(-100%); width: 220px; }
-      nav.hidden { transform: translateX(-100%); }
-      #menu-toggle { display: block; }
-      #overlay.active { display: block; }
-      #main-content { margin-left: 0; width: 100%; }
-    }
-    /* Ajustar z-index para que el contenido esté por encima si el menú está cerrado */
-#main-content {
-  z-index: 1;
-}
-
-/* Asegurarse que el overlay no cubra el contenido cuando el menú está cerrado */
-#overlay {
-  z-index: 900; /* Menor que #main-content */
-}
-
-/* El menú debe estar por encima cuando está abierto */
-nav {
-  z-index: 1000;
-}
-
-/* Cuando el menú está oculto, que no interfiera */
-@media (max-width: 768px) {
-  nav.hidden {
-    transform: translateX(-100%);
-    z-index: 500;
-  }
-}
-
   </style>
 </head>
 <body>
 
-  <div id="boot-screen"></div>
+<div id="boot-screen"></div>
 
-  <button id="menu-toggle">☰</button>
-  <div id="overlay"></div>
+<div id="main-content">
+  <nav>
+    <a href="#intro">Introducción</a>
+    <a href="#talento">Tu talento</a>
+    <a href="#ventajas">Ventajas</a>
+    <a href="#beneficios">Beneficios</a>
+    <a href="#plan">Plan</a>
+    <a href="#cursos">Cursos</a>
+    <a href="#subareas">Subáreas</a>
+    <a href="#perfil">Perfil</a>
+  </nav>
 
-  <div id="main-content">
-    <nav id="sidebar">
-      <h2>Menú</h2>
-      <a data-target="intro">Introducción</a>
-      <a data-target="talento">Tu talento y el futuro</a>
-      <a data-target="ventajas">Ventajas</a>
-      <a data-target="beneficios">Beneficios en el colegio</a>
-      <a data-target="plan">Plan de estudios</a>
-      <a data-target="cursos">Cursos de Cisco</a>
-      <a data-target="subareas">Explicación subáreas</a>
-      <a data-target="perfil">Perfil de salida</a>
-    </nav>
-
-    <div class="section" id="intro">
-      <h1>¿POR QUÉ ESTUDIAR CIBERSEGURIDAD?</h1>
-      <p>¿Sabías que en el mundo se necesitan más de 10 millones de personas para trabajar en Ciberseguridad?</p>
-      <p>Hoy en día, hay una altísima demanda de profesionales capaces de proteger sistemas, redes e información digital, pero no hay suficientes personas preparadas.</p>
-      <p>¡Y eso significa una gran oportunidad para vos!</p>
-    </div>
-
-    <!-- ... incluye aquí tus demás secciones de forma igual ... -->
-
+  <div class="section" id="intro">
+    <h1>¿POR QUÉ ESTUDIAR CIBERSEGURIDAD?</h1>
+    <p>¿Sabías que en el mundo se necesitan más de 10 millones de personas para trabajar en Ciberseguridad?</p>
+    <p>Hoy en día, hay una altísima demanda de profesionales capaces de proteger sistemas, redes e información digital, pero no hay suficientes personas preparadas.</p>
+    <p>¡Y eso significa una gran oportunidad para vos!</p>
   </div>
 
-  <script>
-    const bootLines = [
-      "Iniciando Ciberseguridad v1.0...",
-      "Cargando módulos esenciales...",
-      "Estableciendo conexiones de red...",
-      "Inicializando interfaz de usuario...",
-      "Preparando contenido principal...",
-      "Listo, bienvenido al Colegio Técnico Profesional Jesús Ocaña Rojas.",
-      "Presiona cualquier tecla para continuar..."
-    ];
-    const boot = document.getElementById("boot-screen"),
-          main = document.getElementById("main-content"),
-          secs = document.querySelectorAll(".section"),
-          links = document.querySelectorAll("nav a"),
-          btn = document.getElementById("menu-toggle"),
-          side = document.getElementById("sidebar"),
-          ov = document.getElementById("overlay");
+  <div class="section" id="talento">
+    <h2>¿Y si tu talento fuera la clave para proteger el futuro?</h2>
+    <p>¿Te gustan la tecnología, los videojuegos o pasar tiempo frente a la computadora? Entonces tienes algo en común con los expertos en Ciberseguridad.</p>
+  </div>
 
-    let idx = 0;
-    function typeBoot(){
-      if(idx<bootLines.length){
-        const line = document.createElement("div");
-        boot.appendChild(line);
-        let ci=0;
-        const inter=setInterval(()=>{
-          line.textContent += bootLines[idx][ci++];
-          if(ci===bootLines[idx].length){
-            clearInterval(inter);
-            idx++;
-            setTimeout(typeBoot,500);
-          }
-        },30);
-      } else {
-        document.addEventListener("touchstart", showMain, { once:true });
-        document.addEventListener("keydown", showMain, { once:true });
-        setTimeout(showMain,3000);
-      }
-    }
-    function showMain(){
-      boot.style.display="none";
-      main.style.display="block";
-      showSec('intro');
-    }
-    function showSec(id){
-      secs.forEach(s=>s.classList.toggle("active", s.id===id));
-      side.classList.add("hidden");
-      ov.classList.remove("active");
-    }
+  <!-- Resto de secciones igual... -->
+</div>
 
-    btn.addEventListener("click", ()=>{
-      const open = side.classList.contains("hidden");
-      side.classList.toggle("hidden", !open);
-      ov.classList.toggle("active", open);
-    });
-    ov.addEventListener("click", ()=>{
-      side.classList.add("hidden"); 
-      ov.classList.remove("active");
-    });
+<script>
+  const bootLines = [
+    "Iniciando Ciberseguridad v1.0...",
+    "Cargando módulos...",
+    "Bienvenido al CTP Jesús Ocaña Rojas.",
+    "Toca para continuar..."
+  ];
 
-    links.forEach(a=>a.addEventListener("click", ()=>{
-      showSec(a.dataset.target);
-    }));
-    typeBoot();
-  </script>
+  const bootScreen = document.getElementById("boot-screen");
+  const mainContent = document.getElementById("main-content");
+
+  let lineIndex = 0;
+
+  function typeLine() {
+    if (lineIndex < bootLines.length) {
+      const line = document.createElement("div");
+      bootScreen.appendChild(line);
+
+      let charIndex = 0;
+      const interval = setInterval(() => {
+        line.textContent += bootLines[lineIndex][charIndex++];
+        if (charIndex === bootLines[lineIndex].length) {
+          clearInterval(interval);
+          lineIndex++;
+          setTimeout(typeLine, 300);
+        }
+      }, 40);
+    } else {
+      document.addEventListener("touchstart", showContent, { once: true });
+      document.addEventListener("keydown", showContent, { once: true });
+    }
+  }
+
+  function showContent() {
+    bootScreen.style.display = "none";
+    mainContent.style.display = "block";
+  }
+
+  typeLine();
+</script>
+
 </body>
 </html>
