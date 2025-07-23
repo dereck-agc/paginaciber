@@ -16,9 +16,9 @@
       overflow: hidden;
     }
 
+    /* Pantalla de booteo */
     #boot-screen {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
+      position: fixed; inset: 0;
       background: black;
       color: #00FF00;
       padding: 1.5rem;
@@ -28,6 +28,7 @@
       overflow-y: auto;
     }
 
+    /* Contenido principal */
     #main-content {
       display: none;
       background-color: rgba(0,0,0,0.95);
@@ -41,147 +42,97 @@
       transition: margin-left 0.3s ease;
     }
 
+    /* Menú lateral */
     nav {
       position: fixed;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       height: 100%;
       width: 220px;
-      background: rgba(0, 0, 0, 0.95);
-      display: flex;
-      flex-direction: column;
+      background: rgba(0,0,0,0.95);
       padding: 1em;
       box-sizing: border-box;
       z-index: 1000;
       overflow-y: auto;
+      transform: translateX(0);
       transition: transform 0.3s ease;
     }
 
-    nav h2 {
-      text-align: center;
-      margin-bottom: 1em;
-      font-size: 1.1rem;
-      color: #00FF00;
+    nav.hidden {
+      transform: translateX(-100%);
     }
 
-    nav a {
-      color: #00FF00;
-      text-decoration: none;
-      padding: 0.5em 0;
-      display: block;
-      cursor: pointer;
-    }
-
-    nav a:hover {
-      color: #66FF66;
-    }
+    nav h2 { text-align: center; margin-bottom: 1rem; font-size: 1.1rem; }
+    nav a { display: block; padding: 0.5em 0; text-decoration: none; color: #00FF00; }
+    nav a:hover { color: #66FF66; }
 
     .section {
+      display: none;
       padding: 2em;
+      max-width: 700px;
       margin: 3em auto;
       background: black;
       opacity: 0.95;
-      display: none;
-      max-width: 700px;
-      overflow-y: auto;
-      box-sizing: border-box;
       text-align: justify;
+      box-sizing: border-box;
     }
 
-    .section.active {
-      display: block;
-    }
+    .section.active { display: block; }
 
     h1, h2, h3 {
-      color: #00FF00;
       text-align: center;
       margin-bottom: 1rem;
-    }
-
-    p, ul {
       color: #00FF00;
-      line-height: 1.6;
     }
 
-    ul {
-      margin-left: 2em;
-    }
+    p, ul { line-height: 1.6; color: #00FF00; }
 
-    ul li {
-      margin: 0.5em 0;
-    }
+    ul { margin-left: 2em; }
+    ul li { margin: 0.5em 0; }
 
-    /* Botón de menú para móviles */
+    /* Botón y overlay para móviles */
     #menu-toggle {
       display: none;
       position: fixed;
-      top: 10px;
-      left: 10px;
-      z-index: 1100;
+      top: 10px; left: 10px;
       background: none;
-      color: #00FF00;
       border: 2px solid #00FF00;
+      color: #00FF00;
       font-size: 1.2rem;
       padding: 0.4em 0.7em;
+      z-index: 1100;
       cursor: pointer;
     }
 
-    /* Responsive */
+    #overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 900;
+    }
+
+    /* Adaptación móvil */
     @media (max-width: 768px) {
-      nav {
-        transform: translateX(-100%);
-        width: 220px;
-        height: 100%;
-        position: fixed;
-        left: 0;
-        top: 0;
-        background: black;
-      }
-
-      nav.open {
-        transform: translateX(0);
-      }
-
-      #main-content {
-        margin-left: 0;
-        width: 100%;
-        padding: 1em;
-      }
-
-      #menu-toggle {
-        display: block;
-      }
-
-      .overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 900;
-      }
-
-      .overlay.active {
-        display: block;
-      }
+      nav { transform: translateX(-100%); width: 220px; }
+      nav.hidden { transform: translateX(-100%); }
+      #menu-toggle { display: block; }
+      #overlay.active { display: block; }
+      #main-content { margin-left: 0; width: 100%; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Pantalla de booteo -->
+  <!-- Pantalla booteo -->
   <div id="boot-screen"></div>
 
-  <!-- Botón de menú para móviles -->
+  <!-- Botón menú -->
   <button id="menu-toggle">☰</button>
-  <div class="overlay" id="menu-overlay"></div>
+  <div id="overlay"></div>
 
-  <!-- Contenido principal -->
+  <!-- Contenido -->
   <div id="main-content">
-    <!-- Menú lateral -->
-    <nav id="menu">
+    <nav id="sidebar">
       <h2>Menú</h2>
       <a data-target="intro">Introducción</a>
       <a data-target="talento">Tu talento y el futuro</a>
@@ -193,16 +144,9 @@
       <a data-target="perfil">Perfil de salida</a>
     </nav>
 
-    <!-- Aquí van todas tus secciones .section como ya las tienes... -->
-    <!-- Ejemplo de una -->
-    <div class="section" id="intro">
-      <h1>¿POR QUÉ ESTUDIAR CIBERSEGURIDAD?</h1>
-      <p>¿Sabías que en el mundo se necesitan más de 10 millones de personas para trabajar en Ciberseguridad?</p>
-      <p>Hoy en día, hay una altísima demanda de profesionales capaces de proteger sistemas, redes e información digital, pero no hay suficientes personas preparadas.</p>
-      <p>¡Y eso significa una gran oportunidad para vos!</p>
-    </div>
-
-    <!-- ... y el resto igual como ya los tienes -->
+    <!-- Aquí tus secciones intactas -->
+    <div class="section" id="intro"><h1>¿POR QUÉ ESTUDIAR CIBERSEGURIDAD?</h1><p>...</p></div>
+    <!-- ... demás secciones ... -->
   </div>
 
   <script>
@@ -215,75 +159,57 @@
       "Listo, bienvenido al Colegio Técnico Profesional Jesús Ocaña Rojas.",
       "Presiona cualquier tecla para continuar..."
     ];
+    const boot = document.getElementById("boot-screen"),
+          main = document.getElementById("main-content"),
+          secs = document.querySelectorAll(".section"),
+          links = document.querySelectorAll("nav a"),
+          btn = document.getElementById("menu-toggle"),
+          side = document.getElementById("sidebar"),
+          ov = document.getElementById("overlay");
 
-    const bootScreen = document.getElementById("boot-screen");
-    const mainContent = document.getElementById("main-content");
-    const sections = document.querySelectorAll(".section");
-    const menuLinks = document.querySelectorAll("nav a");
-    const menuToggle = document.getElementById("menu-toggle");
-    const menu = document.getElementById("menu");
-    const overlay = document.getElementById("menu-overlay");
-
-    let lineIndex = 0;
-
-    function typeNextLine() {
-      if (lineIndex < bootLines.length) {
+    let idx = 0;
+    function typeBoot(){
+      if(idx<bootLines.length){
         const line = document.createElement("div");
-        bootScreen.appendChild(line);
-
-        let charIndex = 0;
-        const interval = setInterval(() => {
-          line.textContent += bootLines[lineIndex][charIndex];
-          charIndex++;
-          if (charIndex === bootLines[lineIndex].length) {
-            clearInterval(interval);
-            lineIndex++;
-            setTimeout(typeNextLine, 500);
+        boot.appendChild(line);
+        let ci=0;
+        const inter=setInterval(()=>{
+          line.textContent+=bootLines[idx][ci++];
+          if(ci===bootLines[idx].length){
+            clearInterval(inter);
+            idx++;
+            setTimeout(typeBoot,500);
           }
-        }, 30);
+        },30);
       } else {
-        document.addEventListener("keydown", showMainContent, { once: true });
-        document.addEventListener("touchstart", showMainContent, { once: true });
-        setTimeout(showMainContent, 3000);
+        document.addEventListener("touchstart", showMain, { once:true });
+        document.addEventListener("keydown", showMain, { once:true });
+        setTimeout(showMain,3000);
       }
     }
-
-    function showMainContent() {
-      bootScreen.style.display = "none";
-      mainContent.style.display = "block";
-      showSection('intro');
+    function showMain(){
+      boot.style.display="none";
+      main.style.display="block";
+      showSec('intro');
+    }
+    function showSec(id){
+      secs.forEach(s=>s.classList.toggle("active", s.id===id));
+      side.classList.add("hidden");
+      ov.classList.remove("active");
     }
 
-    function showSection(id) {
-      sections.forEach(section => {
-        section.classList.toggle("active", section.id === id);
-      });
-      // Cierra menú si está en móvil
-      menu.classList.remove("open");
-      overlay.classList.remove("active");
-    }
-
-    // Botón para abrir/cerrar el menú en móviles
-    menuToggle.addEventListener("click", () => {
-      menu.classList.toggle("open");
-      overlay.classList.toggle("active");
+    btn.addEventListener("click", ()=>{
+      const open = !side.classList.contains("hidden");
+      side.classList.toggle("hidden", open);
+      ov.classList.toggle("active", open);
     });
+    ov.addEventListener("click", ()=>{ side.classList.add("hidden"); ov.classList.remove("active"); });
 
-    overlay.addEventListener("click", () => {
-      menu.classList.remove("open");
-      overlay.classList.remove("active");
-    });
+    links.forEach(a=>a.addEventListener("click", e=>{
+      showSec(a.getAttribute("data-target")); 
+    }));
 
-    // Enlaces de menú
-    menuLinks.forEach(link => {
-      link.addEventListener("click", () => {
-        const target = link.getAttribute("data-target");
-        showSection(target);
-      });
-    });
-
-    typeNextLine();
+    typeBoot();
   </script>
-
 </body>
 </html>
