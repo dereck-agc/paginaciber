@@ -16,7 +16,6 @@
       overflow: hidden;
     }
 
-    /* Pantalla de booteo */
     #boot-screen {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -29,7 +28,6 @@
       overflow-y: auto;
     }
 
-    /* Contenido principal */
     #main-content {
       display: none;
       background-color: rgba(0,0,0,0.95);
@@ -40,9 +38,9 @@
       margin-left: 240px;
       width: calc(100% - 240px);
       overflow-y: auto;
+      transition: margin-left 0.3s ease;
     }
 
-    /* Menú lateral (modo escritorio) */
     nav {
       position: fixed;
       top: 0;
@@ -54,8 +52,9 @@
       flex-direction: column;
       padding: 1em;
       box-sizing: border-box;
-      z-index: 100;
+      z-index: 1000;
       overflow-y: auto;
+      transition: transform 0.3s ease;
     }
 
     nav h2 {
@@ -77,7 +76,6 @@
       color: #66FF66;
     }
 
-    /* Secciones */
     .section {
       padding: 2em;
       margin: 3em auto;
@@ -113,30 +111,35 @@
       margin: 0.5em 0;
     }
 
-    /* Responsive para celulares */
+    /* Botón de menú para móviles */
+    #menu-toggle {
+      display: none;
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 1100;
+      background: none;
+      color: #00FF00;
+      border: 2px solid #00FF00;
+      font-size: 1.2rem;
+      padding: 0.4em 0.7em;
+      cursor: pointer;
+    }
+
+    /* Responsive */
     @media (max-width: 768px) {
       nav {
-        position: static;
-        width: 100%;
-        height: auto;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
+        transform: translateX(-100%);
+        width: 220px;
+        height: 100%;
+        position: fixed;
+        left: 0;
+        top: 0;
         background: black;
-        padding: 0.5em;
       }
 
-      nav h2 {
-        width: 100%;
-        font-size: 1rem;
-        margin-bottom: 0.5em;
-      }
-
-      nav a {
-        padding: 0.5em;
-        font-size: 0.9rem;
-        margin: 0.2em;
-        white-space: nowrap;
+      nav.open {
+        transform: translateX(0);
       }
 
       #main-content {
@@ -145,14 +148,23 @@
         padding: 1em;
       }
 
-      .section {
-        margin: 1em 0;
-        padding: 1em;
+      #menu-toggle {
+        display: block;
       }
 
-      #boot-screen {
-        font-size: 1rem;
-        padding: 1em;
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 900;
+      }
+
+      .overlay.active {
+        display: block;
       }
     }
   </style>
@@ -162,9 +174,14 @@
   <!-- Pantalla de booteo -->
   <div id="boot-screen"></div>
 
+  <!-- Botón de menú para móviles -->
+  <button id="menu-toggle">☰</button>
+  <div class="overlay" id="menu-overlay"></div>
+
   <!-- Contenido principal -->
   <div id="main-content">
-    <nav>
+    <!-- Menú lateral -->
+    <nav id="menu">
       <h2>Menú</h2>
       <a data-target="intro">Introducción</a>
       <a data-target="talento">Tu talento y el futuro</a>
@@ -176,9 +193,16 @@
       <a data-target="perfil">Perfil de salida</a>
     </nav>
 
-    <!-- Secciones (igual que en tu versión, no modificadas) -->
-    <!-- Puedes pegar todas tus <div class="section" id="..."> aquí sin cambios -->
+    <!-- Aquí van todas tus secciones .section como ya las tienes... -->
+    <!-- Ejemplo de una -->
+    <div class="section" id="intro">
+      <h1>¿POR QUÉ ESTUDIAR CIBERSEGURIDAD?</h1>
+      <p>¿Sabías que en el mundo se necesitan más de 10 millones de personas para trabajar en Ciberseguridad?</p>
+      <p>Hoy en día, hay una altísima demanda de profesionales capaces de proteger sistemas, redes e información digital, pero no hay suficientes personas preparadas.</p>
+      <p>¡Y eso significa una gran oportunidad para vos!</p>
+    </div>
 
+    <!-- ... y el resto igual como ya los tienes -->
   </div>
 
   <script>
@@ -196,6 +220,9 @@
     const mainContent = document.getElementById("main-content");
     const sections = document.querySelectorAll(".section");
     const menuLinks = document.querySelectorAll("nav a");
+    const menuToggle = document.getElementById("menu-toggle");
+    const menu = document.getElementById("menu");
+    const overlay = document.getElementById("menu-overlay");
 
     let lineIndex = 0;
 
@@ -215,7 +242,8 @@
           }
         }, 30);
       } else {
-        document.addEventListener("keydown", showMainContent);
+        document.addEventListener("keydown", showMainContent, { once: true });
+        document.addEventListener("touchstart", showMainContent, { once: true });
         setTimeout(showMainContent, 3000);
       }
     }
@@ -228,14 +256,25 @@
 
     function showSection(id) {
       sections.forEach(section => {
-        if (section.id === id) {
-          section.classList.add("active");
-        } else {
-          section.classList.remove("active");
-        }
+        section.classList.toggle("active", section.id === id);
       });
+      // Cierra menú si está en móvil
+      menu.classList.remove("open");
+      overlay.classList.remove("active");
     }
 
+    // Botón para abrir/cerrar el menú en móviles
+    menuToggle.addEventListener("click", () => {
+      menu.classList.toggle("open");
+      overlay.classList.toggle("active");
+    });
+
+    overlay.addEventListener("click", () => {
+      menu.classList.remove("open");
+      overlay.classList.remove("active");
+    });
+
+    // Enlaces de menú
     menuLinks.forEach(link => {
       link.addEventListener("click", () => {
         const target = link.getAttribute("data-target");
