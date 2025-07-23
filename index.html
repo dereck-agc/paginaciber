@@ -112,6 +112,18 @@
     ul li {
       margin: 0.5em 0;
     }
+    .cursor {
+  display: inline-block;
+  width: 10px;
+  color: #00FF00;
+  animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
   </style>
 </head>
 <body>
@@ -219,6 +231,7 @@
       <p><b>Competencias genéricas:</b> Emprendimiento, monitoreo de TI, defensa de datos, uso de tecnologías digitales, trabajo en equipo.</p>
       <p><b>Competencias humanas:</b> Autocontrol, compromiso ético, responsabilidad, atención al cliente, liderazgo, innovación y pensamiento crítico.</p>
     </div>
+    
 
   </div>
 
@@ -239,6 +252,7 @@
   const menuLinks = document.querySelectorAll("nav a");
 
   let lineIndex = 0;
+  let bootCompleted = false;
 
   function typeNextLine() {
     if (lineIndex < bootLines.length) {
@@ -256,80 +270,58 @@
         }
       }, 30);
     } else {
-      document.addEventListener("keydown", showMainContent);
-      setTimeout(showMainContent, 3000);
+      bootCompleted = true;
+      document.addEventListener("keydown", showMainContentOnce);
+      setTimeout(showMainContentOnce, 4000);
     }
   }
 
-  function showMainContent() {
+  function showMainContentOnce() {
+    if (!bootCompleted) return;
+    bootCompleted = false; // para que no se repita si presionan muchas teclas
     bootScreen.style.display = "none";
     mainContent.style.display = "block";
-    showSection('intro');
-  }
-
-  function typeWriterEffect(element, text, callback) {
-    let i = 0;
-    const speed = 15;
-    element.innerHTML = ''; // Limpia primero
-    const cursor = document.createElement("span");
-    cursor.id = "typewriter-cursor";
-    cursor.textContent = "|";
-    element.appendChild(cursor);
-
-    function type() {
-      if (i < text.length) {
-        cursor.insertAdjacentText('beforebegin', text.charAt(i));
-        i++;
-        setTimeout(type, speed);
-      } else {
-        callback && callback();
-      }
-    }
-    type();
-  }
-
-  function eraseEffect(element, callback) {
-    const text = element.textContent;
-    let i = text.length;
-    const speed = 10;
-
-    function erase() {
-      if (i > 0) {
-        element.textContent = text.substring(0, i - 1);
-        i--;
-        setTimeout(erase, speed);
-      } else {
-        callback();
-      }
-    }
-
-    erase();
+    showSection("intro");
   }
 
   function showSection(id) {
     sections.forEach(section => {
-      const content = section.innerHTML;
-      if (section.classList.contains("active") && section.id !== id) {
-        // Si la sección está visible y no es la nueva, la ocultamos con efecto de borrado
-        const tempContent = section.innerHTML;
-        eraseEffect(section, () => {
-          section.classList.remove("active");
-          section.innerHTML = tempContent; // Restauramos para futuras visitas
-        });
-      }
+      section.classList.remove("active");
     });
 
-    const newSection = document.getElementById(id);
-    const temp = newSection.innerHTML;
-    newSection.innerHTML = ''; // Limpia antes de escribir
-    newSection.classList.add("active");
-    typeWriterEffect(newSection, stripHTML(temp));
-  }
+    const section = document.getElementById(id);
+    section.classList.add("active");
 
-  function stripHTML(html) {
-    const div = document.createElement("div");
-    div.innerHTML = html;
-    return div.textContent || div.innerText || "";
+    const paragraphs = section.querySelectorAll("p, ul");
+    paragraphs.forEach(el => el.style.display = "none");
+
+    let index = 0;
+
+    function revealNext() {
+      if (index >= paragraphs.length) return;
+      const element = paragraphs[index];
+      element.innerHTML = element.innerHTML + `<span class="cursor">|</span>`;
+      element.style.display = "block";
+
+      const fullText = element.textContent.replace("|", "");
+      let currentText = "";
+      let i = 0;
+      const speed = 10;
+
+      const interval = setInterval(() => {
+        currentText += fullText[i];
+        element.childNodes[0].nodeValue = currentText;
+        i++;
+        if (i >= fullText.length) {
+          clearInterval(interval);
+          element.querySelector(".cursor").remove();
+          index++;
+          setTimeout(revealNext, 200); // Espacio entre elementos
+        }
+      }, speed);
+    }
+
+    revealNext();
   }
 
   menuLinks.forEach(link => {
