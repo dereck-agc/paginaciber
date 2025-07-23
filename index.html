@@ -139,6 +139,13 @@
         transform: none !important;
       }
     }
+    nav a.active-link {
+  background-color: #004400;
+  color: #FFFFFF;
+  font-weight: bold;
+  border-left: 4px solid #00FF00;
+  padding-left: 0.5em;
+}
   </style>
 </head>
 <body>
@@ -299,18 +306,18 @@
     }
 
     function showSection(id) {
-      sections.forEach(section => {
-        if (section.id === id) {
-          section.classList.add("active");
-        } else {
-          section.classList.remove("active");
-        }
-      });
-      if (window.innerWidth < 768) {
-        sideMenu.classList.remove("open");
-      }
-    }
+  sections.forEach(section => {
+    section.classList.toggle("active", section.id === id);
+  });
 
+  menuLinks.forEach(link => {
+    link.classList.toggle("active-link", link.getAttribute("data-target") === id);
+  });
+
+  if (window.innerWidth < 768) {
+    sideMenu.classList.remove("open");
+  }
+}
     menuLinks.forEach(link => {
       link.addEventListener("click", () => {
         const target = link.getAttribute("data-target");
